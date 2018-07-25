@@ -1,0 +1,27 @@
+class Solution {
+public:
+map<vector<int>,int> mp;
+vector<vector<int> > ans;
+void combin(vector<int>& candidates,int target,int low,vector<int> now) {
+	int n=candidates.size();
+	if(target==0) {
+		sort(now.begin(),now.end());
+		if(mp[now]) return;
+		ans.push_back(now);
+		mp[now]=1;
+		return;
+	}
+    if(target<0||low==n) return ;
+	for(int i=low; i<n; i++) {
+		now.push_back(candidates[i]);
+		combin(candidates,target-candidates[i],i+1,now);
+		now.pop_back();
+	}
+}
+
+vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+	vector<int> now;
+	combin(candidates,target,0,now);
+    return ans;
+}
+};
