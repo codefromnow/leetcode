@@ -1,0 +1,16 @@
+class Solution {
+public:
+  int search(vector<int>& nums,int target){
+      int n=nums.size();
+      int ans=sear(nums,target,0,n-1);
+      return ans;
+  }
+  int sear(vector<int>& nums,int target,int l,int r) {
+	if(l>r) return -1;
+	int mid=(l+r)/2;
+	if(nums[mid]==target) return mid;
+	if((target>nums[mid]&&((nums[mid]>nums[r])||(nums[mid]<nums[r]&&target<=nums[r])))||(target<nums[mid]&&nums[mid]>=nums[l]&&target<nums[l]))
+	return sear(nums,target,mid+1,r);
+	else return sear(nums,target,l,mid-1);
+}
+};
