@@ -1,0 +1,27 @@
+vector<vector<int> > ans;
+map<vector<int>,int> mp;
+void four(vector<int>& sum,vector<int> now,int index,int num,int target) {
+	int n=sum.size();
+	if(num==0&&target==0) {
+		sort(now.begin(),now.end());
+		mp[now]=1;
+		return ;
+	}
+	if((num==0&&target!=0)||index==n) return ;
+	for(int i=index; i<n; i++) {
+		now.push_back(sum[i]);
+		four(sum,now,i+1,num-1,target-sum[i]);
+		now.pop_back();
+	}
+}
+
+
+
+vector<vector<int> >fourSum(vector<int>& nums,int target) {
+	vector<int> now;
+	four(nums,now,0,4,target);
+	for(auto i:mp){
+		ans.push_back(i.first);
+	}
+	return ans;
+}
