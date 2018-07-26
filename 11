@@ -1,0 +1,11 @@
+public:
+    int maxArea(vector<int>& height) {
+        int siz=height.size();
+        int ma=-1;
+        for(int i=0;i<siz-1;i++){
+            for(int j=i+1;j<siz;j++){
+                if(ma<min(height[i],height[j])*(j-i)) ma=min(height[i],height[j])*(j-i);
+            }
+        }
+        return ma;
+    }
