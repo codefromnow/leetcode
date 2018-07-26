@@ -1,0 +1,42 @@
+class Solution {
+public:
+    vector<vector<int>> fourSum(vector<int>& nums, int target) {
+        vector<vector<int>>result;
+        if(nums.size()<4){
+            return result;
+        }
+        
+        
+        sort(nums.begin(), nums.end());
+        map<string,int> m;
+        map<string,int>::iterator iter;
+        string r = "";
+        for(int i=0; i <nums.size()-3;i++){
+            for(int j = i+1; j < nums.size()-2; j++){
+                for(int k = j+1; k< nums.size()-1; k++){
+                    for(int l = k+1; l< nums.size(); l++){                   
+                        vector<int>re;
+                        if(nums[i]+nums[j]+nums[k]+nums[l]-target == 0){
+                            //组成字符串插入map中，防止.出现重复
+                            string r1 = to_string(nums[i])+to_string(nums[j])+to_string(nums[k])+to_string(nums[l]);
+                            
+                            iter = m.find(r1);
+                            if(iter == m.end()){
+                                re.push_back(nums[i]);
+                                re.push_back(nums[j]);
+                                re.push_back(nums[k]);
+                                re.push_back(nums[l]);
+                                result.push_back(re);
+                                m.insert(pair<string,int>(r1,0));
+                            }
+                            
+                        }
+                    }
+                }
+            }
+            
+            
+        }
+        return result;
+    }
+};
