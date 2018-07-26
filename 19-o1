@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int z;
+    ListNode* ans;
+    int dfs(ListNode* head)
+    {
+        if(head==NULL) return 0;
+        int dep=dfs(head->next);
+        if(dep==z) ans=head;
+        return dep+1;
+    }
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        z=n;
+        ans=NULL;
+        dfs(head);
+        if(ans==NULL) return head->next;
+        else {
+            ans->next=ans->next->next;
+            return head;
+        }
+    }
+};
