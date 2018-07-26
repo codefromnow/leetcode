@@ -1,0 +1,40 @@
+class Solution {
+public:
+	ListNode* findLastN(ListNode* head, int& count, int n) {
+
+		if (head == NULL)
+		{
+			return NULL;
+		}
+
+		ListNode* target = findLastN(head->next, count, n);
+		if (++count == n)
+			target = head;
+
+		return target;
+	}
+
+	ListNode * removeNthFromEnd(ListNode* head, int n) {
+		if (head == NULL)
+			return NULL;
+
+		// we want to remove nth, so find parent(nth+1), and we know how to remove nth
+		int count = 0;
+		ListNode* parent = findLastN(head, count, n + 1);
+		
+		// check if n is valid
+		if (n > count)
+			return head;
+
+		if (parent == NULL)
+			// if returned node is null, we known it is head to be removed (only head node has no parent)
+			head =  head->next;
+		else
+		{
+			ListNode* remove = parent->next;
+			if (remove)
+				parent->next = remove->next;
+		}
+
+		return head;
+	}
