@@ -1,0 +1,27 @@
+class Solution {
+public:
+  vector<string> combos;
+  vector<string> phone{ " " , " ", "abc","def" ,"ghi", "jkl" , "mno" , "pqrs","tuv","wxyz"};
+
+void Actual(string digits, int start, string curr)
+{
+    if(curr.length() == digits.length())
+    {
+        combos.push_back(curr);
+        return;
+    }
+    for(int i = 0; i < phone[digits[start] - 48].length(); ++i)
+    {
+        string k = curr + phone[digits[start] - 48][i];
+        Actual(digits,start+1,k);
+    }
+}
+
+vector<string> letterCombinations(string digits) {
+    if(digits == "")
+        return combos;
+    string curr;
+    Actual(digits,0,curr);
+    return combos;
+}
+};
