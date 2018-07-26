@@ -1,0 +1,10 @@
+    int maxArea(vector<int>& height) {
+      auto front = height.begin();
+      auto back = height.end() - 1;
+      int area = 0;
+      int width = back - front;
+      while (front != back) {
+        area = std::max(area, ((*front < *back) ? *front++ : *back--) * width--);
+      }
+      return area;
+    }
