@@ -1,0 +1,26 @@
+class Solution {
+public:
+map<char,int> num;
+int lengthOfLongestSubstring(string s) {
+	int len=s.length();
+	int res=0;
+	int j=0;
+	int i=0;
+	while(j<len) {
+		num[s[j]]++;
+		if(num[s[j]]==1) {
+			if((j-i+1)>res) {
+				res=(j-i+1);
+			}
+			j++;
+		} else {
+			while(num[s[j]]!=1) {
+				num[s[i++]]--;
+			}
+			j++;
+		}
+	}
+	return res;
+}
+
+};
