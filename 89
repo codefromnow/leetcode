@@ -1,0 +1,17 @@
+class Solution {
+public:
+    vector<int> grayCode(int n) {
+        std::vector<int> ret;
+        if (n == 0) {
+            ret.push_back(0);
+            return ret;
+        }
+        std::vector<int> rec = grayCode(n - 1);
+        ret.insert(ret.begin(), rec.begin(), rec.end());
+        int prefix_bit = 1 << (n - 1);
+        for (auto it = rec.rbegin(); it != rec.rend(); it ++) {
+            ret.push_back(*it + prefix_bit);
+        }
+        return ret;
+    }
+};
