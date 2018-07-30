@@ -1,0 +1,33 @@
+int flag=0;
+
+int nex[4][2]= {{1,0},{-1,0},{0,1},{0,-1}};
+int sear[50][50];
+void dfs(vector<vector<char> > board,string word,int iindex,int jindex,string now,int index) {
+	int row=board.size();
+	int column=board[0].size();
+	if(now==word) {
+		flag=1;
+		return ;
+	}
+	if(flag==1) return ;
+	if(iindex==row||jindex==column||iindex==-1||jindex==-1) return;
+	if(word[index]!=board[iindex][jindex]) return;
+	if(sear[iindex][jindex]==1) return;
+	sear[iindex][jindex]=1;
+	for(int k=0; k<4; k++) {
+		dfs(board,word,iindex+nex[k][0],jindex+nex[k][1],now+board[iindex][jindex],index+1);
+	}
+	sear[iindex][jindex]=0;
+}
+bool exist(vector<vector<char> >& board,string word) {
+	int row=board.size();
+	int column=board[0].size();
+	for(int i=0; i<row; i++) {
+		for(int j=0; j<column; j++) {
+			memset(sear,0,sizeof(sear));
+			dfs(board,word,i,j,"",0);
+			if(flag==1) return true;
+		}
+	}
+	return false;
+}
