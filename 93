@@ -1,0 +1,29 @@
+vector<string> ans;
+void findIp(string s,int sidx,string now,int nidx,int cnum,int dotn,int flag) {
+	if(dotn==3&&sidx==s.size()) {
+		cout<<now<<endl;
+		ans.push_back(now);
+	}
+	if(sidx==s.size()) return ;
+	cnum=cnum*10+s[sidx]-'0';
+	if(!flag) {
+		if(cnum<=255) {
+			if(nidx==-1&&s[sidx]=='0') flag=1;
+			if(nidx!=-1) {
+				if(now[nidx]=='.'&&s[sidx]=='0') flag=1;
+			}
+			now+=s[sidx];
+			findIp(s,sidx+1,now,nidx+1,cnum,dotn,flag);
+			now.erase(now.end()-1);
+		}
+	}
+	if(nidx==-1) return;
+	if(now[nidx]!='.'&&dotn<3) {
+		now+='.';
+		findIp(s,sidx,now,nidx+1,0,dotn+1,0);
+	}
+}
+vector<string> restoreIpAddress(string s) {
+	findIp(s,0,"",-1,0,0,0);
+	return ans;
+}
